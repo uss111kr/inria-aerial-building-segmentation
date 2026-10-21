@@ -1,0 +1,27 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter Notebook Checkpoints
+.ipynb_checkpoints/
+
+# Dataset and Working Outputs (Do not commit large GeoTIFFs or model weights)
+AerialImageDataset/
+working/
+checkpoints/*.pth
+checkpoints/*.pt
+submission_tifs/*.tif
+submission_tifs/*.tiff
+*.7z
+*.zip
+
+# Environments
+.env
+.venv
+env/
+venv/
+
+# OS metadata
+.DS_Store
+Thumbs.db
