@@ -36,3 +36,28 @@ AerialImageDataset/
 │   └── gt/          # 180 single-channel uint8 masks (0 = background, 255 = building)
 └── test/
     └── images/      # 180 RGB GeoTIFFs (bellingham1.tif ... tyrol-e36.tif)
+
+## 🧠 Methodology & Architecture
+
+1. **Data Preparation:** Raw GeoTIFF tiles ($5000 \times 5000$ px at 0.3m resolution) from five training regions (Austin, Chicago, Kitsap County, West Tyrol, Vienna) are sliced into smaller overlapping/non-overlapping patches with dynamic on-the-fly geometric and photometric augmentations.
+2. **Model:** U-Net with a MobileNetV2 encoder (`segmentation_models_pytorch` / PyTorch).
+3. **Loss Function:** 
+   $$\mathcal{L}_{total} = \alpha \cdot \mathcal{L}_{BCE} + (1 - \alpha) \cdot \mathcal{L}_{Dice}$$
+4. **Sliding-Window Inference:** During evaluation on full-scale test tiles, overlapping patches are weighted by a 2D Gaussian kernel before aggregation, down-weighting less reliable patch borders.
+
+---
+
+## 📊 Benchmark Results (Official Inria Test Set)
+
+The model was evaluated on the official unseen test regions—**Bellingham, Bloomington, Innsbruck, San Francisco (SFO), and East Tyrol (Tyrol-E)**—demonstrating strong cross-geographic generalization across diverse North American and European urban layouts.
+
+| Test Region | IoU (%) | Pixel Accuracy (%) |
+| :--- | :---: | :---: |
+| **Bellingham** | 67.23 | 96.74 |
+| **Bloomington** | 62.99 | 96.60 |
+| **Innsbruck** | 70.33 | 96.59 |
+| **San Francisco (SFO)** | 67.24 | 90.06 |
+| **East Tyrol (Tyrol-E)** | **73.94** | **97.57** |
+| **Overall Benchmark** | **68.04** | **95.25** |
+
+---
