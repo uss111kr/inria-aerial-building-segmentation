@@ -24,19 +24,6 @@ High-resolution remote sensing imagery presents two major challenges for deep le
 
 ---
 
-## Dataset Setup
-
-1. Download the official **Inria Aerial Image Labeling Dataset** from the [Inria project page](https://project.inria.fr/aerialimagelabeling/).
-2. Extract the archive on your machine. The expected directory structure is[cite: 1]:
-
-```text
-AerialImageDataset/
-├── train/
-│   ├── images/      # 180 RGB GeoTIFFs (austin1.tif ... vienna36.tif, 5000x5000 px, 0.3m/px)
-│   └── gt/          # 180 single-channel uint8 masks (0 = background, 255 = building)
-└── test/
-    └── images/      # 180 RGB GeoTIFFs (bellingham1.tif ... tyrol-e36.tif)
-
 ## 🧠 Methodology & Architecture
 
 1. **Data Preparation:** Raw GeoTIFF tiles ($5000 \times 5000$ px at 0.3m resolution) from five training regions (Austin, Chicago, Kitsap County, West Tyrol, Vienna) are sliced into smaller overlapping/non-overlapping patches with dynamic on-the-fly geometric and photometric augmentations.
@@ -61,3 +48,17 @@ The model was evaluated on the official unseen test regions—**Bellingham, Bloo
 | **Overall Benchmark** | **68.04** | **95.25** |
 
 ---
+
+## Dataset Setup
+
+1. Download the official **Inria Aerial Image Labeling Dataset** from the [Inria project page](https://project.inria.fr/aerialimagelabeling/).
+2. Extract the archive on your machine. The expected directory structure is[cite: 1]:
+
+```text
+AerialImageDataset/
+├── train/
+│   ├── images/      # 180 RGB GeoTIFFs (austin1.tif ... vienna36.tif, 5000x5000 px, 0.3m/px)
+│   └── gt/          # 180 single-channel uint8 masks (0 = background, 255 = building)
+└── test/
+    └── images/      # 180 RGB GeoTIFFs (bellingham1.tif ... tyrol-e36.tif)
+
